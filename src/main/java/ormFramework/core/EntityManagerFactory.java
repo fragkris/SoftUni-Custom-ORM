@@ -19,13 +19,13 @@ public class EntityManagerFactory {
         Connection connection = DriverManager.getConnection("jdbc:" + dbType + "://" + host + ":" + port + "/" + dbName, user, password);
 
         List<Class<?>> classes = getEntities(mainClass);
-        createTables(connection, classes);
+        createTable(connection, classes);
 
 
         return new EntityManagerImpl(connection);
     }
 
-    private static void createTables(Connection connection, List<Class<?>> classes) throws SQLException {
+    private static void createTable(Connection connection, List<Class<?>> classes) throws SQLException {
         for (Class classInfo : classes) {
             Entity entityInfo =(Entity) classInfo.getAnnotation(Entity.class);
             String sql = "CREATE TABLE ";
