@@ -11,9 +11,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Locale;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class EntityManagerImpl implements EntityManager {
@@ -99,6 +97,29 @@ public class EntityManagerImpl implements EntityManager {
 
 
             return preparedStatement.executeUpdate() > 0;
+    }
+
+    @Override
+    public <T> boolean alterTable(T entity) throws SQLException {
+
+        Set<String> columnsInTable = getAllColumnsInTableByEntity(entity);
+
+        return false;
+    }
+
+    private <T> Set<String> getAllColumnsInTableByEntity(T entity) throws SQLException {
+        Set<String>allColumns = new HashSet<>();
+        String query = "SELECT COLUMN_NAME FROM information_schema.COLUMNS" +
+                " WHERE TABLE_SCHEMA = 'test_orm' " +
+                "AND TABLE_NAME = 'users' " +
+                "AND COLUMN_NAME  !=  id";
+        PreparedStatement preparedStatement = connection.prepareStatement(query);
+        ResultSet resultSet = preparedStatement.executeQuery(query);
+
+        while (resultSet.next()){
+            //Todo: allColumns.add();
+        }
+        return null;
     }
 
     private <T> boolean doUpdate(int id, T entity) throws SQLException {

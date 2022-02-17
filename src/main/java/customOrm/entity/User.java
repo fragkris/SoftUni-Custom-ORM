@@ -18,6 +18,16 @@ public class User {
     private int age;
     @Column(name = "registration", columnDefinition = "DATE")
     private LocalDate registration;
+    @Column(name = "address", columnDefinition = "VARCHAR(255)")
+    private String address;
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
 
     public User(){
     }

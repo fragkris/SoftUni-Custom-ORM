@@ -18,4 +18,6 @@ public interface EntityManager {
     <T> boolean persist (T entity) throws IllegalAccessException, SQLException;
 
     <T> boolean delete (T entity) throws IllegalAccessException, SQLException;
+
+    <T> boolean alterTable (T entity) throws SQLException;
 }
